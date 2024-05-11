@@ -1,6 +1,19 @@
+import { FC, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { BooksStateType } from './redux'
 
-export const Catalog = () => {
+type Props = {
+  booksState: BooksStateType
+  fetchBooks: () => void
+}
+
+export const Catalog: FC<Props> = ({ booksState, fetchBooks }) => {
+  useEffect(() => {
+    fetchBooks()
+  }, [fetchBooks])
+
+  console.log(booksState)
+
   return (
     <div>
       <section>
