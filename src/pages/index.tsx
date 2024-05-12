@@ -1,6 +1,8 @@
 import Cart from './cart'
 import Details from './details'
-import Home from './home'
 import Error from './error'
+import Home from './home'
+import SignIn from './signIn'
+import SignUp from './signUp'
 
-export { Cart, Details, Error, Home }
+export { Cart, Details, Error, Home, SignIn, SignUp }

@@ -1,11 +1,19 @@
 import { createBrowserRouter } from 'react-router-dom'
-import { Error, Details, Home, Cart } from '../pages'
-import Layout from '../components/layout'
+import { Error, Details, Home, Cart, SignIn, SignUp } from '../pages'
+import ProtectedLayout from '../components/protected-layout'
 
 export const router = createBrowserRouter([
   {
+    path: '/signIn',
+    element: <SignIn />,
+  },
+  {
+    path: '/signUp',
+    element: <SignUp />,
+  },
+  {
     path: '/',
-    element: <Layout />,
+    element: <ProtectedLayout />,
     errorElement: <Error />,
     children: [
       {
