@@ -12,7 +12,7 @@ export const Catalog: FC<Props> = ({ booksState, fetchBooks }) => {
     fetchBooks()
   }, [fetchBooks])
 
-  console.log(booksState)
+  // console.log(booksState)
 
   return (
     <div>
