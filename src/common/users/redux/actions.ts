@@ -1,8 +1,5 @@
-// login
-// logout
-// register
-
 import { delayOperation } from '../../../utils/delayOperation'
+import { getUserByEmail } from '../../../utils/getUserByEmail'
 
 export const SIGN_UP_USER_REQUEST = 'SIGN_UP_USER_REQUEST'
 export const SIGN_UP_USER_SUCCESS = 'SIGN_UP_USER_SUCCESS'
@@ -16,6 +13,7 @@ export const LOGOUT_USER_REQUEST = 'LOGOUT_USER_REQUEST'
 export const LOGOUT_USER_SUCCESS = 'LOGOUT_USER_SUCCESS'
 export const LOGOUT_USER_FAILURE = 'LOGOUT_USER_FAILURE'
 
+// Sign Up Actions
 type SignUpUserRequestActionType = {
   type: typeof SIGN_UP_USER_REQUEST
 }
@@ -30,9 +28,47 @@ type SignUpUserFailureActionType = {
   error: string
 }
 
-export type ActionType = SignUpUserRequestActionType | SignUpUserSuccessActionType | SignUpUserFailureActionType
+// Sign In Actions
+type SignInUserRequestActionType = {
+  type: typeof SIGN_IN_USER_REQUEST
+}
 
-export const signUpUser = (user: User) => async (dispatch: any) => {
+type SignInUserSuccessActionType = {
+  type: typeof SIGN_IN_USER_SUCCESS
+  email: string
+}
+
+type SignInUserFailureActionType = {
+  type: typeof SIGN_IN_USER_FAILURE
+  error: string
+}
+
+// Logout Actions
+type LogoutUserRequestActionType = {
+  type: typeof LOGOUT_USER_REQUEST
+}
+
+type LogoutUserSuccessActionType = {
+  type: typeof LOGOUT_USER_SUCCESS
+}
+
+type LogoutUserFailureActionType = {
+  type: typeof LOGOUT_USER_FAILURE
+  error: string
+}
+
+export type ActionType =
+  | SignUpUserRequestActionType
+  | SignUpUserSuccessActionType
+  | SignUpUserFailureActionType
+  | SignInUserRequestActionType
+  | SignInUserSuccessActionType
+  | SignInUserFailureActionType
+  | LogoutUserRequestActionType
+  | LogoutUserSuccessActionType
+  | LogoutUserFailureActionType
+
+export const signUpUser = (user: User) => async (dispatch: any, getState: () => any) => {
   dispatch({
     type: SIGN_UP_USER_REQUEST,
   })
@@ -41,14 +77,69 @@ export const signUpUser = (user: User) => async (dispatch: any) => {
     // delay the parsing to simulate an api request
     await delayOperation()
 
-    dispatch({
-      type: SIGN_UP_USER_SUCCESS,
-      user,
-    })
+    const state = getState()
+    const { registeredUsers } = state.users
+    if (!getUserByEmail(registeredUsers, user.email)) {
+      dispatch({
+        type: SIGN_UP_USER_SUCCESS,
+        user,
+      })
+    } else {
+      throw new Error('The user already exists')
+    }
   } catch (error: any) {
-    console.log(error)
     dispatch({
       type: SIGN_UP_USER_FAILURE,
+      error: error.message,
+    })
+  }
+}
+
+export const signInUser = (email: string, password: string) => async (dispatch: any, getState: () => any) => {
+  dispatch({
+    type: SIGN_IN_USER_REQUEST,
+  })
+
+  try {
+    // delay the parsing to simulate an api request
+    await delayOperation()
+
+    const state = getState()
+    const { registeredUsers } = state.users
+    const user = getUserByEmail(registeredUsers, email)
+
+    // Having non encrypted password just for the sake of this challenge, password shouldn't be saved on any store
+    if (user?.password === password) {
+      dispatch({
+        type: SIGN_IN_USER_SUCCESS,
+        email,
+      })
+    } else {
+      throw new Error('Invalid email or password')
+    }
+  } catch (error: any) {
+    dispatch({
+      type: SIGN_IN_USER_FAILURE,
+      error: error.message,
+    })
+  }
+}
+
+export const logout = () => async (dispatch: any) => {
+  dispatch({
+    type: LOGOUT_USER_REQUEST,
+  })
+
+  try {
+    // delay the parsing to simulate an api request
+    await delayOperation()
+
+    dispatch({
+      type: LOGOUT_USER_SUCCESS,
+    })
+  } catch (error: any) {
+    dispatch({
+      type: LOGOUT_USER_FAILURE,
       error,
     })
   }

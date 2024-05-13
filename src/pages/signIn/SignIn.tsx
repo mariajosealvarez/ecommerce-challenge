@@ -1,4 +1,4 @@
-import Button from '@mui/material/Button'
+import LoadingButton from '@mui/lab/LoadingButton'
 import TextField from '@mui/material/TextField'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
@@ -8,15 +8,42 @@ import Grid from '@mui/material/Grid'
 import Link from '@mui/material/Link'
 import Avatar from '@mui/material/Avatar'
 import MenuBookIcon from '@mui/icons-material/MenuBook'
+import Alert from '@mui/material/Alert'
+import SaveIcon from '@mui/icons-material/Save'
 
 import { Link as RouterLink, useNavigate } from 'react-router-dom'
+import { FC, useEffect, useState } from 'react'
+import { UsersStateType } from '../../common/users/redux'
 
-export const SignIn = () => {
+type Props = {
+  users: UsersStateType
+  signInUser: (email: string, password: string) => void
+}
+
+export const SignIn: FC<Props> = ({ users, signInUser }: Props) => {
+  const [email, setEmail] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
   const navigate = useNavigate()
+  const { isLoading, signedInUser, signInError } = users
+  const isSubmitDisabled = !email || !password
 
-  const handleSubmit = () => {
-    console.log('submit')
-    navigate('/')
+  useEffect(() => {
+    if (signedInUser) {
+      navigate('/')
+    }
+  }, [navigate, signedInUser])
+
+  const handleEmailChange = (event: any) => {
+    setEmail(event.target.value)
+  }
+
+  const handlePasswordChange = (event: any) => {
+    setPassword(event.target.value)
+  }
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
+    event.preventDefault()
+    signInUser(email, password)
   }
 
   return (
@@ -46,6 +73,8 @@ export const SignIn = () => {
             name='email'
             autoComplete='email'
             autoFocus
+            onChange={handleEmailChange}
+            value={email}
           />
           <TextField
             margin='normal'
@@ -56,10 +85,22 @@ export const SignIn = () => {
             type='password'
             id='password'
             autoComplete='current-password'
+            onChange={handlePasswordChange}
+            value={password}
           />
-          <Button type='submit' fullWidth variant='contained' sx={{ mt: 3, mb: 2 }}>
+          <LoadingButton
+            type='submit'
+            fullWidth
+            variant='contained'
+            sx={{ mt: 3, mb: 2 }}
+            loading={isLoading}
+            loadingPosition='start'
+            startIcon={<SaveIcon />}
+            disabled={isSubmitDisabled}
+          >
             Sign In
-          </Button>
+          </LoadingButton>
+          {signInError && <Alert severity='error'>{signInError}</Alert>}
           <Grid container justifyContent='flex-end'>
             <Grid item>
               <Link component={RouterLink} to='/signup' variant='body2'>

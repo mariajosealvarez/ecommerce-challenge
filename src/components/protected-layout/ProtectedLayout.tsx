@@ -1,10 +1,12 @@
 import { Navigate, Outlet } from 'react-router-dom'
 import TopNav from '../topNav'
+import { useSelector } from 'react-redux'
+import { isUserSignedIn } from '../../common/users/selectors/selectors'
 
 export const ProtectedLayout = () => {
-  const hasLogguedUser = true // TODO fetch from users store
+  const hasLoguedUser = useSelector(isUserSignedIn)
 
-  if (!hasLogguedUser) {
+  if (!hasLoguedUser) {
     return <Navigate to='/signin'></Navigate>
   }
 

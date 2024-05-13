@@ -13,7 +13,7 @@ import MenuItem from '@mui/material/MenuItem'
 import { FC, useState } from 'react'
 import MenuBookIcon from '@mui/icons-material/MenuBook'
 
-import { Link as RouterLink } from 'react-router-dom'
+import { Link as RouterLink, useNavigate } from 'react-router-dom'
 
 const pages = [
   {
@@ -25,11 +25,15 @@ const pages = [
     path: '/cart',
   },
 ]
-const settings = ['Logout']
 
-export const TopNav: FC = () => {
+type Props = {
+  logout: () => {}
+}
+
+export const TopNav: FC<Props> = ({ logout }) => {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null)
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null)
+  const navigate = useNavigate()
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget)
@@ -44,6 +48,12 @@ export const TopNav: FC = () => {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null)
+  }
+
+  const handleLogout = () => {
+    handleCloseUserMenu()
+    logout()
+    navigate('/signin')
   }
 
   return (
@@ -124,11 +134,9 @@ export const TopNav: FC = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign='center'>{setting}</Typography>
-                </MenuItem>
-              ))}
+              <MenuItem onClick={handleLogout}>
+                <Typography textAlign='center'>Logout</Typography>
+              </MenuItem>
             </Menu>
           </Box>
         </Toolbar>

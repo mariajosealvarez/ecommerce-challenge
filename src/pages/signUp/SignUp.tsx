@@ -1,6 +1,6 @@
 import { FC, useState } from 'react'
 
-import Button from '@mui/material/Button'
+import LoadingButton from '@mui/lab/LoadingButton'
 import TextField from '@mui/material/TextField'
 import Link from '@mui/material/Link'
 import Grid from '@mui/material/Grid'
@@ -10,9 +10,10 @@ import Container from '@mui/material/Container'
 import CssBaseline from '@mui/material/CssBaseline'
 import Avatar from '@mui/material/Avatar'
 import MenuBookIcon from '@mui/icons-material/MenuBook'
+import SaveIcon from '@mui/icons-material/Save'
+import Alert from '@mui/material/Alert'
 import { Link as RouterLink } from 'react-router-dom'
 import { UsersStateType } from '../../common/users/redux'
-import { getUserByEmail } from '../../utils/getUserByEmail'
 
 type Props = {
   users: UsersStateType
@@ -20,7 +21,7 @@ type Props = {
 }
 
 export const SignUp: FC<Props> = ({ users, signUpUser }) => {
-  const { isLoading, registeredUsers } = users
+  const { isLoading, signUpError } = users
   const [newUser, setNewUser] = useState<User>({
     firstName: '',
     lastName: '',
@@ -32,22 +33,14 @@ export const SignUp: FC<Props> = ({ users, signUpUser }) => {
 
   // TODO define this any
   const handleFieldChange = (event: any): void => {
-    console.log(event)
     const { name, value } = event.target
     setNewUser({ ...newUser, [name]: value.trim() })
   }
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault()
-
     // TODO add validations
-
-    // TODO validate user is unique
-    if (!getUserByEmail(registeredUsers, newUser.email)) {
-      signUpUser(newUser)
-    } else {
-      console.log('error usuario already exist')
-    }
+    signUpUser(newUser)
   }
 
   return (
@@ -120,9 +113,19 @@ export const SignUp: FC<Props> = ({ users, signUpUser }) => {
               />
             </Grid>
           </Grid>
-          <Button type='submit' fullWidth variant='contained' sx={{ mt: 3, mb: 2 }} disabled={isSubmitDisabled}>
+          <LoadingButton
+            type='submit'
+            fullWidth
+            variant='contained'
+            sx={{ mt: 3, mb: 2 }}
+            loading={isLoading}
+            loadingPosition='start'
+            startIcon={<SaveIcon />}
+            disabled={isSubmitDisabled}
+          >
             Sign Up
-          </Button>
+          </LoadingButton>
+          {signUpError && <Alert severity='error'>{signUpError}</Alert>}
           <Grid container justifyContent='flex-end'>
             <Grid item>
               <Link component={RouterLink} to='/signin' variant='body2'>
