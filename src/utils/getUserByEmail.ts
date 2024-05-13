@@ -1,3 +1,3 @@
-export const getUserByEmail = (users: User[], email: string): User | null => {
-  return users.filter((user) => user.email === email)[0]
+export const getUserByEmail = (users: User[], email: string): User | undefined => {
+  return users.find((user) => user.email === email)
 }
