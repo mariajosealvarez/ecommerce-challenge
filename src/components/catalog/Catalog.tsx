@@ -1,6 +1,7 @@
 import { FC, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Alert, Box, Container, Grid } from '@mui/material'
 import { BooksStateType } from './redux'
+import Book from './book'
 
 type Props = {
   booksState: BooksStateType
@@ -8,25 +9,24 @@ type Props = {
 }
 
 export const Catalog: FC<Props> = ({ booksState, fetchBooks }) => {
+  const { isLoading, books, error } = booksState
   useEffect(() => {
     fetchBooks()
   }, [fetchBooks])
 
-  // console.log(booksState)
+  if (error) {
+    return <Alert severity='error'>Error trying to get the books, please try again</Alert>
+  }
 
   return (
-    <div>
-      <section>
-        <div>
-          <p>book1</p>
-          <Link to='/books/1'>Book1</Link>
-        </div>
-        -------
-        <div>
-          <p>book2</p>
-          <Link to='/books/2'>Book2</Link>
-        </div>
-      </section>
-    </div>
+    <Container>
+      <Box>
+        <Grid container spacing={4}>
+          {books.map((book) => (
+            <Book key={book.id} book={book} isLoading={isLoading} />
+          ))}
+        </Grid>
+      </Box>
+    </Container>
   )
 }

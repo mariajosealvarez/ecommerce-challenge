@@ -2,22 +2,25 @@ import { Navigate, Outlet } from 'react-router-dom'
 import TopNav from '../topNav'
 import { useSelector } from 'react-redux'
 import { isUserSignedIn } from '../../common/users/selectors/selectors'
+import { Container, CssBaseline } from '@mui/material'
 
 export const ProtectedLayout = () => {
-  const hasLoguedUser = useSelector(isUserSignedIn)
+  // const hasLoggedUser = useSelector(isUserSignedIn)
+  const hasLoggedUser = true
 
-  if (!hasLoguedUser) {
+  if (!hasLoggedUser) {
     return <Navigate to='/signin'></Navigate>
   }
 
   return (
-    <div>
-      <header>
+    <>
+      <CssBaseline />
+      <Container maxWidth='lg'>
         <TopNav />
-      </header>
-      <main>
-        <Outlet />
-      </main>
-    </div>
+        <Container sx={{ mt: '100px' }}>
+          <Outlet />
+        </Container>
+      </Container>
+    </>
   )
 }

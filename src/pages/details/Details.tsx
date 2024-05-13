@@ -1,3 +1,7 @@
+import { useParams, useSearchParams } from 'react-router-dom'
+
 export const Details = () => {
-  return <div>BOOK DETAIL</div>
+  const { bookId } = useParams()
+
+  return <div>{bookId}</div>
 }

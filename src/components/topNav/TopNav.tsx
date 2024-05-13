@@ -57,8 +57,8 @@ export const TopNav: FC<Props> = ({ logout }) => {
   }
 
   return (
-    <AppBar position='static'>
-      <Container maxWidth='xl'>
+    <AppBar>
+      <Container>
         <Toolbar disableGutters>
           <MenuBookIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
