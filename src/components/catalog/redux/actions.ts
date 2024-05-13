@@ -16,7 +16,7 @@ type FetchBooksSuccessActionType = {
 
 type FetchBooksFailureActionType = {
   type: typeof FETCH_BOOKS_FAILURE
-  // error: string
+  error: string
 }
 
 export type ActionType = FetchBooksRequestActionType | FetchBooksSuccessActionType | FetchBooksFailureActionType

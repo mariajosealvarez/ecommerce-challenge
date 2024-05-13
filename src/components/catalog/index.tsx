@@ -1,6 +1,6 @@
+import { ComponentProps } from 'react'
 import { connect } from 'react-redux'
 import { Catalog as _Catalog } from './Catalog'
-import { ComponentProps } from 'react'
 import { fetchBooks } from './redux/actions'
 
 type StatePropsType = Pick<ComponentProps<typeof _Catalog>, 'booksState'>

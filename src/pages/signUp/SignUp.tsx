@@ -1,3 +1,5 @@
+import { FC, useState } from 'react'
+
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 import Link from '@mui/material/Link'
@@ -8,17 +10,44 @@ import Container from '@mui/material/Container'
 import CssBaseline from '@mui/material/CssBaseline'
 import Avatar from '@mui/material/Avatar'
 import MenuBookIcon from '@mui/icons-material/MenuBook'
-
 import { Link as RouterLink } from 'react-router-dom'
+import { UsersStateType } from '../../common/users/redux'
+import { getUserByEmail } from '../../utils/getUserByEmail'
 
-export const SignUp = () => {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+type Props = {
+  users: UsersStateType
+  signUpUser: (user: User) => void
+}
+
+export const SignUp: FC<Props> = ({ users, signUpUser }) => {
+  const { isLoading, registeredUsers } = users
+  const [newUser, setNewUser] = useState<User>({
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+  })
+
+  const isSubmitDisabled = !newUser.firstName || !newUser.lastName || !newUser.email || !newUser.password || isLoading
+
+  // TODO define this any
+  const handleFieldChange = (event: any): void => {
+    console.log(event)
+    const { name, value } = event.target
+    setNewUser({ ...newUser, [name]: value.trim() })
+  }
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault()
-    const data = new FormData(event.currentTarget)
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    })
+
+    // TODO add validations
+
+    // TODO validate user is unique
+    if (!getUserByEmail(registeredUsers, newUser.email)) {
+      signUpUser(newUser)
+    } else {
+      console.log('error usuario already exist')
+    }
   }
 
   return (
@@ -49,6 +78,8 @@ export const SignUp = () => {
                 id='firstName'
                 label='First Name'
                 autoFocus
+                onChange={handleFieldChange}
+                value={newUser.firstName}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -59,10 +90,21 @@ export const SignUp = () => {
                 label='Last Name'
                 name='lastName'
                 autoComplete='family-name'
+                onChange={handleFieldChange}
+                value={newUser.lastName}
               />
             </Grid>
             <Grid item xs={12}>
-              <TextField required fullWidth id='email' label='Email' name='email' autoComplete='email' />
+              <TextField
+                required
+                fullWidth
+                id='email'
+                label='Email'
+                name='email'
+                autoComplete='email'
+                onChange={handleFieldChange}
+                value={newUser.email}
+              />
             </Grid>
             <Grid item xs={12}>
               <TextField
@@ -73,10 +115,12 @@ export const SignUp = () => {
                 type='password'
                 id='password'
                 autoComplete='new-password'
+                onChange={handleFieldChange}
+                value={newUser.password}
               />
             </Grid>
           </Grid>
-          <Button type='submit' fullWidth variant='contained' sx={{ mt: 3, mb: 2 }}>
+          <Button type='submit' fullWidth variant='contained' sx={{ mt: 3, mb: 2 }} disabled={isSubmitDisabled}>
             Sign Up
           </Button>
           <Grid container justifyContent='flex-end'>

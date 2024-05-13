@@ -9,11 +9,14 @@ import Link from '@mui/material/Link'
 import Avatar from '@mui/material/Avatar'
 import MenuBookIcon from '@mui/icons-material/MenuBook'
 
-import { Link as RouterLink } from 'react-router-dom'
+import { Link as RouterLink, useNavigate } from 'react-router-dom'
 
 export const SignIn = () => {
+  const navigate = useNavigate()
+
   const handleSubmit = () => {
     console.log('submit')
+    navigate('/')
   }
 
   return (
