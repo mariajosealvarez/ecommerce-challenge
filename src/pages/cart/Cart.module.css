@@ -1,0 +1,35 @@
+.cart {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.orders {
+  display: flex;
+  flex-direction: column;
+  margin-right: 20px;
+  flex-grow: 1;
+}
+
+.order {
+  display: flex;
+  border: 1px solid #1976d2;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 25px;
+
+  .details {
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+}
+
+.cartSummary {
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  /* border: 1px solid;
+  border-radius: 20px; */
+}

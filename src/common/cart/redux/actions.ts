@@ -20,7 +20,7 @@ type AddBookRequestActionType = {
 
 type AddBookSuccessActionType = {
   type: typeof ADD_BOOK_SUCCESS
-  bookId: string
+  bookId: Book
   userId: string
 }
 
@@ -73,7 +73,7 @@ export type ActionType =
   | UpdateBookQuantitySuccessActionType
   | UpdateBookQuantityFailureActionType
 
-export const addBook = (bookId: string) => async (dispatch: any, getState: () => any) => {
+export const addBook = (book: Book) => async (dispatch: any, getState: () => any) => {
   dispatch({
     type: ADD_BOOK_REQUEST,
   })
@@ -89,7 +89,7 @@ export const addBook = (bookId: string) => async (dispatch: any, getState: () =>
 
     dispatch({
       type: ADD_BOOK_SUCCESS,
-      bookId,
+      book,
       userId: signedInUser,
     })
   } catch (error: any) {

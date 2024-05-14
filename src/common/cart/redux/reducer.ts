@@ -11,16 +11,9 @@ import {
   UPDATE_BOOK_QUANTITY_FAILURE,
 } from './actions'
 
-type BookOrder = {
-  bookId: string
-  quantity: number
-}
-
-type CartOrders = Record<string, BookOrder[]>
-
 export type CartStateType = {
   isLoading: boolean
-  orders: CartOrders
+  orders: Cart
   error: string
 }
 
@@ -31,28 +24,48 @@ const initialState: CartStateType = {
 }
 
 const getOrderIndexByBook = (orders: BookOrder[], bookId: string): number =>
-  orders.findIndex((order) => order.bookId === bookId)
+  orders.findIndex((order) => order.book.id === bookId)
 
-const updateBookQuantity = (userOrders: BookOrder[], bookId: string, newQuantity: number): BookOrder[] => {
-  const orderIndex = getOrderIndexByBook(userOrders, bookId)
+const addBook = (userOrders: BookOrder[], book: Book): BookOrder[] => {
+  const orderIndex = getOrderIndexByBook(userOrders, book.id)
   if (orderIndex >= 0) {
     // the user already have this book in their cart
     let bookOrder = userOrders[orderIndex]
     bookOrder = {
       ...bookOrder,
-      quantity: bookOrder.quantity + newQuantity,
+      quantity: bookOrder.quantity + 1,
     }
     userOrders[orderIndex] = bookOrder
     return userOrders
   } else {
+    const { id, title, imageLinks, listPrice } = book
+    // I'm saving the diplicated book data just to have them for the Cart page,
+    // in a real case, we receive the cart from an API and incase the book price change, the
+    // cart is going to reflect that change
     return [
       ...userOrders,
       {
-        bookId,
-        quantity: newQuantity,
+        book: {
+          id,
+          title,
+          imageLinks,
+          listPrice,
+        },
+        quantity: 1,
       },
     ]
   }
+}
+
+const updateBookQuantity = (userOrders: BookOrder[], bookId: string, newQuantity: number): BookOrder[] => {
+  const orderIndex = getOrderIndexByBook(userOrders, bookId)
+  let bookOrder = userOrders[orderIndex]
+  bookOrder = {
+    ...bookOrder,
+    quantity: bookOrder.quantity + newQuantity,
+  }
+  userOrders[orderIndex] = bookOrder
+  return userOrders
 }
 
 export const cartReducer = (state: CartStateType = initialState, action: ActionType | any) => {
@@ -64,7 +77,7 @@ export const cartReducer = (state: CartStateType = initialState, action: ActionT
       }
     case ADD_BOOK_SUCCESS: {
       const userOrders = state.orders[action.userId] || []
-      const updatedOrders = updateBookQuantity([...userOrders], action.bookId, 1)
+      const updatedOrders = addBook([...userOrders], action.book)
       return {
         ...state,
         isLoading: false,
@@ -91,7 +104,7 @@ export const cartReducer = (state: CartStateType = initialState, action: ActionT
         isLoading: false,
         orders: {
           ...state.orders,
-          [action.userId]: state.orders[action.userId].filter((order) => order.bookId !== action.bookId),
+          [action.userId]: state.orders[action.userId].filter((order) => order.book.id !== action.bookId),
         },
       }
     case REMOVE_BOOK_FAILURE:

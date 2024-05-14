@@ -8,7 +8,7 @@ import { Link as RouterLink } from 'react-router-dom'
 import { FC } from 'react'
 
 type Props = {
-  addToCart: (bookId: string) => void
+  addToCart: (book: Book) => void
 }
 
 export const Details: FC<Props> = ({ addToCart }) => {
@@ -17,10 +17,10 @@ export const Details: FC<Props> = ({ addToCart }) => {
 
   console.log(book)
 
-  const handleAddToCart = (bookId: string) => {
-    console.log('add to cart', bookId)
+  const handleAddToCart = (book: Book) => {
+    console.log('add to cart', book)
     // navigate(`/cart`)
-    addToCart(bookId)
+    addToCart(book)
   }
 
   if (!book) {
@@ -44,7 +44,7 @@ export const Details: FC<Props> = ({ addToCart }) => {
                 {book.listPrice.currencyCode} {book.listPrice.amount}
               </Typography>
             )}
-            <IconButton aria-label='Add to cart' onClick={() => handleAddToCart(book.id)}>
+            <IconButton aria-label='Add to cart' onClick={() => handleAddToCart(book)}>
               <AddShoppingCartIcon />
             </IconButton>
           </div>

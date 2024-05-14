@@ -1,0 +1,18 @@
+.control {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.controlButton {
+  background-color: #F6F6F6;
+  font-size: 14px;
+  padding: 5px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.quantity {
+  padding: 10px;
+}
