@@ -13,13 +13,12 @@ type Props = {
 export const Cart: FC<Props> = ({ updateBookQuantity, removeBook }) => {
   const userOrders: BookOrder[] = useSelector(userCartSelector)
 
-  // mostrarimagen, titulo, botones para cambiar cantidad, link al detalle
   const cartSummary = userOrders.reduce(
-    (summary, order) => {
-      const bookTotal = order.quantity * (order.book.listPrice?.amount || 0)
+    (summary, { book, quantity }) => {
+      const bookTotal = quantity * (book.listPrice?.amount || 0)
       return {
         total: summary.total + bookTotal,
-        items: summary.items + order.quantity,
+        items: summary.items + quantity,
       }
     },
     {
@@ -44,16 +43,27 @@ export const Cart: FC<Props> = ({ updateBookQuantity, removeBook }) => {
   return (
     <div className={styles.cart}>
       <div className={styles.orders}>
-        {userOrders.map((order) => (
-          <div key={order.book.id} className={styles.order}>
+        {userOrders.map(({ book, quantity }) => (
+          <div key={book.id} className={styles.order}>
             <div>
-              <img src={order.book.imageLinks.smallThumbnail} alt={order.book.title} />
+              <img src={book.imageLinks.smallThumbnail} alt={book.title} />
             </div>
             <div className={styles.details}>
-              <h3>{order.book.title}</h3>
+              <header className={styles.header}>
+                <h3>{book.title}</h3>
+                <button className={styles.controlButton} onClick={() => handleRemoveBook(book.id)}>
+                  X
+                </button>
+              </header>
+              {book.listPrice && (
+                <p>
+                  Price: {book.listPrice.currencyCode}
+                  {book.listPrice.amount}
+                </p>
+              )}
               <QuantityControl
-                quantity={order.quantity}
-                onChange={(quantity) => handleUpdateBookQuantity(order.book.id, quantity)}
+                quantity={quantity}
+                onChange={(quantity) => handleUpdateBookQuantity(book.id, quantity)}
               />
             </div>
           </div>

@@ -23,6 +23,13 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    flex-grow: 1;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 }
 
