@@ -1,11 +1,13 @@
+import { FC } from 'react'
 import { useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
-import { getBookById } from '../../common/catalog/selectors/selectors'
-import { Alert, Button, IconButton, Typography } from '@mui/material'
-import styles from './Details.module.css'
+import { Alert, IconButton } from '@mui/material'
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart'
-import { Link as RouterLink } from 'react-router-dom'
-import { FC } from 'react'
+
+import { getBookById } from '../../common/catalog/selectors'
+import styles from './Details.module.css'
+import Price from '../../components/price'
+import Authors from '../../components/authors'
 
 type Props = {
   addToCart: (book: Book) => void
@@ -15,11 +17,7 @@ export const Details: FC<Props> = ({ addToCart }) => {
   const { bookId } = useParams()
   const book = useSelector(getBookById(bookId))
 
-  console.log(book)
-
   const handleAddToCart = (book: Book) => {
-    console.log('add to cart', book)
-    // navigate(`/cart`)
     addToCart(book)
   }
 
@@ -34,25 +32,35 @@ export const Details: FC<Props> = ({ addToCart }) => {
           <img src={book.imageLinks.thumbnail} alt={book.title} />
         </div>
         <aside className={styles.detailContent}>
-          <h1 className={styles.title}>{book.title}</h1>
-          <h2 className={styles.authors}>{book.authors ? `Authors: ${book.authors.join(', ')}` : '---'}</h2>
+          <p className={styles.title}>{book.title}</p>
+          <Authors authors={book.authors} />
           <p className={styles.description}>{book.description}</p>
-          <p>Page count {book.pageCount}</p>
+          <p className={styles.description}>
+            <strong>Categories: </strong>
+            {book.categories.join(', ')}
+          </p>
+          <p className={styles.description}>
+            <strong>Page count: </strong>
+            {book.pageCount} pages
+          </p>
+          {book.reviews && (
+            <div className={styles.description}>
+              <p>Reviews:</p>
+              {book.reviews.map((review, index) => (
+                // I'm using the index just because we are listing the reviews,
+                // in case we have the option to edit, remove, etc, we shpuld't use the index value
+                <blockquote key={index}>{review}</blockquote>
+              ))}
+            </div>
+          )}
           <div className={styles.detailFooter}>
-            {book.listPrice && (
-              <Typography>
-                {book.listPrice.currencyCode} {book.listPrice.amount}
-              </Typography>
-            )}
+            {book.listPrice && <Price currency={book.listPrice.currencyCode} amount={book.listPrice.amount} />}
             <IconButton aria-label='Add to cart' onClick={() => handleAddToCart(book)}>
               <AddShoppingCartIcon />
             </IconButton>
           </div>
         </aside>
       </div>
-      <Button component={RouterLink} to='/'>
-        Back to book catalog
-      </Button>
     </section>
   )
 }

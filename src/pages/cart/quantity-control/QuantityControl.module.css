@@ -5,12 +5,13 @@
 }
 
 .controlButton {
-  background-color: #F6F6F6;
-  font-size: 14px;
-  padding: 5px;
-  border-radius: 10px;
+  font-size: 26px;
+  border-radius: 10%;
   border: none;
   cursor: pointer;
+  width: 35px;
+  height: 35px;
+  display: block;
 }
 
 .quantity {

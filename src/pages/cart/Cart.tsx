@@ -4,6 +4,7 @@ import { userCartSelector } from '../../common/cart/selectors'
 import styles from './Cart.module.css'
 import QuantityControl from './quantity-control'
 import { Alert } from '@mui/material'
+import Price from '../../components/price'
 
 type Props = {
   updateBookQuantity: (bookId: string, newQuantity: number) => void
@@ -28,7 +29,6 @@ export const Cart: FC<Props> = ({ updateBookQuantity, removeBook }) => {
   )
 
   const handleUpdateBookQuantity = (bookId: string, quantity: number): void => {
-    console.log(bookId, quantity)
     updateBookQuantity(bookId, quantity)
   }
 
@@ -55,12 +55,7 @@ export const Cart: FC<Props> = ({ updateBookQuantity, removeBook }) => {
                   X
                 </button>
               </header>
-              {book.listPrice && (
-                <p>
-                  Price: {book.listPrice.currencyCode}
-                  {book.listPrice.amount}
-                </p>
-              )}
+              {book.listPrice && <Price currency={book.listPrice.currencyCode} amount={book.listPrice.amount} />}
               <QuantityControl
                 quantity={quantity}
                 onChange={(quantity) => handleUpdateBookQuantity(book.id, quantity)}

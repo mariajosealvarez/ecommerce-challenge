@@ -1,5 +1,6 @@
 import { FC, useEffect } from 'react'
-import { Alert, Box, Container, Grid } from '@mui/material'
+import { Alert, Box, Container, CssBaseline, Grid } from '@mui/material'
+
 import { BooksStateType } from './redux'
 import Book from './book'
 
@@ -20,6 +21,7 @@ export const Catalog: FC<Props> = ({ booksState, fetchBooks }) => {
 
   return (
     <Container>
+      <CssBaseline />
       <Box>
         <Grid container spacing={4}>
           {books.map((book) => (

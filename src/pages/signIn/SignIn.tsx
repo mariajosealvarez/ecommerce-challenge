@@ -1,3 +1,5 @@
+import { FC, useEffect, useState } from 'react'
+import { Link as RouterLink, useNavigate } from 'react-router-dom'
 import LoadingButton from '@mui/lab/LoadingButton'
 import TextField from '@mui/material/TextField'
 import Box from '@mui/material/Box'
@@ -11,8 +13,6 @@ import MenuBookIcon from '@mui/icons-material/MenuBook'
 import Alert from '@mui/material/Alert'
 import SaveIcon from '@mui/icons-material/Save'
 
-import { Link as RouterLink, useNavigate } from 'react-router-dom'
-import { FC, useEffect, useState } from 'react'
 import { UsersStateType } from '../../common/users/redux'
 
 type Props = {
@@ -43,6 +43,8 @@ export const SignIn: FC<Props> = ({ users, signInUser }) => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault()
+
+    // TODO add form validations
     signInUser(email, password)
   }
 
@@ -57,7 +59,7 @@ export const SignIn: FC<Props> = ({ users, signInUser }) => {
           alignItems: 'center',
         }}
       >
-        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+        <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
           <MenuBookIcon />
         </Avatar>
         <Typography component='h1' variant='h5'>

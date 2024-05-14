@@ -1,5 +1,5 @@
 import { FC, useState } from 'react'
-
+import { Link as RouterLink } from 'react-router-dom'
 import LoadingButton from '@mui/lab/LoadingButton'
 import TextField from '@mui/material/TextField'
 import Link from '@mui/material/Link'
@@ -12,7 +12,7 @@ import Avatar from '@mui/material/Avatar'
 import MenuBookIcon from '@mui/icons-material/MenuBook'
 import SaveIcon from '@mui/icons-material/Save'
 import Alert from '@mui/material/Alert'
-import { Link as RouterLink } from 'react-router-dom'
+
 import { UsersStateType } from '../../common/users/redux'
 import { generateRandomId } from './utils/generateRandomId'
 
@@ -31,9 +31,6 @@ export const SignUp: FC<Props> = ({ users, signUpUser }) => {
     password: '',
   })
 
-  const isSubmitDisabled = !newUser.firstName || !newUser.lastName || !newUser.email || !newUser.password || isLoading
-
-  // TODO define this any
   const handleFieldChange = (event: any): void => {
     const { name, value } = event.target
     setNewUser({ ...newUser, [name]: value.trim() })
@@ -41,9 +38,11 @@ export const SignUp: FC<Props> = ({ users, signUpUser }) => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault()
-    // TODO add validations
+    // TODO add form validations
     signUpUser(newUser)
   }
+
+  const isSubmitDisabled = !newUser.firstName || !newUser.lastName || !newUser.email || !newUser.password || isLoading
 
   return (
     <Container component='main' maxWidth='xs'>
@@ -56,7 +55,7 @@ export const SignUp: FC<Props> = ({ users, signUpUser }) => {
           alignItems: 'center',
         }}
       >
-        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+        <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
           <MenuBookIcon />
         </Avatar>
         <Typography component='h1' variant='h5'>

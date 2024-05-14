@@ -18,7 +18,8 @@
       "categories": [
         "Crafts & Hobbies"
       ],
-      "pageCount": 64
+      "pageCount": 64,
+      "reviews": ["Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.", "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old."]
     },
     {
       "id": "QcJ7BAAAQBAJ",
@@ -38,7 +39,8 @@
       "categories": [
         "Crafts & Hobbies"
       ],
-      "pageCount": 32
+      "pageCount": 32,
+      "reviews": ["Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old."]
     },
     {
       "id": "72RnBgAAQBAJ",
@@ -52,7 +54,8 @@
         "amount": 2.73,
         "currencyCode": "USD"
       },
-      "pageCount": 10
+      "pageCount": 10,
+      "reviews": ["Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."]
     },
     {
       "id": "vujNEAAAQBAJ",
@@ -92,7 +95,8 @@
       "categories": [
         "Crafts & Hobbies"
       ],
-      "pageCount": 32
+      "pageCount": 32,
+      "reviews": ["Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.", "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old."]
     },
     {
       "id": "I5m3EAAAQBAJ",
@@ -330,7 +334,8 @@
       "categories": [
         "Crafts & Hobbies"
       ],
-      "pageCount": 31
+      "pageCount": 31,
+      "reviews": ["Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.", "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old."]
     },
     {
       "id": "JMx6DwAAQBAJ",
@@ -762,7 +767,8 @@
       "categories": [
         "Crafts & Hobbies"
       ],
-      "pageCount": 160
+      "pageCount": 160,
+      "reviews": ["Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.", "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old."]
     },
     {
       "id": "mtDYDSSfNMYC",

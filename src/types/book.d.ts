@@ -14,6 +14,7 @@ declare global {
     }
     categories: string[]
     pageCount: number
+    reviews: string[]
   }
 }
 

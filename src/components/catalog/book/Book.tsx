@@ -1,33 +1,44 @@
 import { FC } from 'react'
+import { Link as RouterLink } from 'react-router-dom'
 import Typography from '@mui/material/Typography'
 import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart'
-import { Link as RouterLink, useNavigate } from 'react-router-dom'
-import { CardActionArea, CardActions, IconButton, Skeleton } from '@mui/material'
+import Backdrop from '@mui/material/Backdrop'
+import CardActionArea from '@mui/material/CardActionArea'
+import CardActions from '@mui/material/CardActions'
+import CircularProgress from '@mui/material/CircularProgress'
+import CssBaseline from '@mui/material/CssBaseline'
+import IconButton from '@mui/material/IconButton'
+import Price from '../../price'
+import Authors from '../../authors'
 
 type Props = {
   book: Book
   isLoading: boolean
+  addToCart: (book: Book) => void
 }
 
-export const Book: FC<Props> = ({ book, isLoading }) => {
-  // const navigate = useNavigate()
-
-  const handleAddToCart = (bookId: string) => {
-    console.log('add to cart', bookId)
-    // navigate(`/cart`)
+export const Book: FC<Props> = ({ book, isLoading, addToCart }) => {
+  const handleAddToCart = (book: Book) => {
+    addToCart(book)
   }
 
   return (
     <>
+      <CssBaseline />
       {isLoading ? (
-        <Skeleton animation='wave' height={200} width='25%' />
+        <Backdrop open sx={{ backgroundColor: 'transparent' }}>
+          <CircularProgress color='primary' />
+        </Backdrop>
       ) : (
         <Grid item xs={12} md={3}>
-          <Card sx={{ minHeight: 385 }}>
+          <Card
+            variant='outlined'
+            sx={{ minHeight: 385, flexDirection: 'column', display: 'flex', justifyContent: 'space-between' }}
+          >
             <CardActionArea component={RouterLink} to={`/books/${book.id}`}>
               <CardMedia sx={{ height: 200 }} image={book.imageLinks.thumbnail} title={book.title} />
               <CardContent>
@@ -44,28 +55,12 @@ export const Book: FC<Props> = ({ book, isLoading }) => {
                 >
                   {book.title}
                 </Typography>
-                <Typography
-                  color='text.secondary'
-                  sx={{
-                    mb: 1.5,
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    display: '-webkit-box',
-                    WebkitLineClamp: '1',
-                    WebkitBoxOrient: 'vertical',
-                  }}
-                >
-                  {book.authors ? book.authors.join(', ') : '---'}
-                </Typography>
+                <Authors authors={book.authors} />
               </CardContent>
             </CardActionArea>
-            <CardActions>
-              {book.listPrice && (
-                <Typography>
-                  {book.listPrice.currencyCode} {book.listPrice.amount}
-                </Typography>
-              )}
-              <IconButton aria-label='Add to cart' onClick={() => handleAddToCart(book.id)}>
+            <CardActions sx={{ justifyContent: 'space-between' }}>
+              {book.listPrice && <Price currency={book.listPrice.currencyCode} amount={book.listPrice.amount} />}
+              <IconButton aria-label='Add to cart' onClick={() => handleAddToCart(book)}>
                 <AddShoppingCartIcon />
               </IconButton>
             </CardActions>
