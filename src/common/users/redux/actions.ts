@@ -1,3 +1,4 @@
+import { AppDispatch, RootState } from '../../../store/store'
 import { delayOperation } from '../../../utils/delayOperation'
 import { getUserByEmail } from '../../../utils/getUserByEmail'
 
@@ -68,7 +69,7 @@ export type ActionType =
   | LogoutUserSuccessActionType
   | LogoutUserFailureActionType
 
-export const signUpUser = (user: User) => async (dispatch: any, getState: () => any) => {
+export const signUpUser = (user: User) => async (dispatch: AppDispatch, getState: () => RootState) => {
   dispatch({
     type: SIGN_UP_USER_REQUEST,
   })
@@ -97,49 +98,47 @@ export const signUpUser = (user: User) => async (dispatch: any, getState: () => 
   }
 }
 
-export const signInUser = (email: string, password: string) => async (dispatch: any, getState: () => any) => {
-  dispatch({
-    type: SIGN_IN_USER_REQUEST,
-  })
-
-  try {
-    // delay the parsing to simulate an api request
-    await delayOperation()
-
-    const state = getState()
-    const { registeredUsers } = state.users
-    const user = getUserByEmail(registeredUsers, email)
-
-    // Having non encrypted password just for the sake of this challenge, password shouldn't be saved on any store
-    if (user?.password === password) {
-      dispatch({
-        type: SIGN_IN_USER_SUCCESS,
-        userId: user.id,
-      })
-    } else {
-      throw new Error('Invalid email or password')
-    }
-  } catch (error: any) {
+export const signInUser =
+  (email: string, password: string) => async (dispatch: AppDispatch, getState: () => RootState) => {
     dispatch({
-      type: SIGN_IN_USER_FAILURE,
-      error: error.message,
+      type: SIGN_IN_USER_REQUEST,
     })
-  }
-}
 
-export const logout = () => async (dispatch: any) => {
+    try {
+      // delay the parsing to simulate an api request
+      await delayOperation()
+
+      const state = getState()
+      const { registeredUsers } = state.users
+      const user = getUserByEmail(registeredUsers, email)
+
+      // Having non encrypted password just for the sake of this challenge, password shouldn't be saved on any store
+      if (user?.password === password) {
+        dispatch({
+          type: SIGN_IN_USER_SUCCESS,
+          userId: user.id,
+        })
+      } else {
+        throw new Error('Invalid email or password')
+      }
+    } catch (error: any) {
+      dispatch({
+        type: SIGN_IN_USER_FAILURE,
+        error: error.message,
+      })
+    }
+  }
+
+export const logout = () => async (dispatch: AppDispatch) => {
   dispatch({
     type: LOGOUT_USER_REQUEST,
   })
 
   try {
-    // delay the parsing to simulate an api request
-    await delayOperation()
-
     dispatch({
       type: LOGOUT_USER_SUCCESS,
     })
-  } catch (error: any) {
+  } catch (error) {
     dispatch({
       type: LOGOUT_USER_FAILURE,
       error,

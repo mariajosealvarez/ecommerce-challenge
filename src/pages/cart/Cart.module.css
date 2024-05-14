@@ -1,7 +1,6 @@
 .cart {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  flex-direction: column;
 }
 
 .orders {
@@ -30,12 +29,25 @@
     justify-content: space-between;
     align-items: center;
   }
+
+  .closeButton {
+    font-size: 15px;
+    border-radius: 10%;
+    border: none;
+    cursor: pointer;
+    width: 35px;
+    height: 35px;
+    display: block;
+  }
+}
+
+.title {
+  font-size: 20px;
+  margin: 0;
 }
 
 .cartSummary {
   display: flex;
   flex-direction: column;
   padding: 15px;
-  /* border: 1px solid;
-  border-radius: 20px; */
 }

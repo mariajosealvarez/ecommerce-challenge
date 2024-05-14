@@ -50,8 +50,8 @@ export const Cart: FC<Props> = ({ updateBookQuantity, removeBook }) => {
             </div>
             <div className={styles.details}>
               <header className={styles.header}>
-                <h3>{book.title}</h3>
-                <button className={styles.controlButton} onClick={() => handleRemoveBook(book.id)}>
+                <p className={styles.title}>{book.title}</p>
+                <button className={styles.closeButton} onClick={() => handleRemoveBook(book.id)}>
                   X
                 </button>
               </header>
@@ -65,9 +65,10 @@ export const Cart: FC<Props> = ({ updateBookQuantity, removeBook }) => {
         ))}
       </div>
       <div className={styles.cartSummary}>
-        <h5>ORDER SUMMARY: </h5>
-        <p>ITEMS: {cartSummary.items}</p>
-        <p>TOTAL {cartSummary.total.toFixed(2)}</p>
+        <p className={styles.title}>
+          Order Summary: {cartSummary.items} {cartSummary.items > 1 ? 'items' : 'item'}, Total:{' '}
+          {cartSummary.total.toFixed(2)}
+        </p>
       </div>
     </div>
   )

@@ -1,12 +1,12 @@
 import { ComponentProps } from 'react'
 import { connect } from 'react-redux'
 import { Catalog as _Catalog } from './Catalog'
-import { fetchBooks } from './redux/actions'
+import { fetchBooks } from '../../common/catalog/redux/actions'
+import { RootState } from '../../store/store'
 
 type StatePropsType = Pick<ComponentProps<typeof _Catalog>, 'booksState'>
 
-// TODO replace the ANY
-const mapStateToProps = (state: any): StatePropsType => ({
+const mapStateToProps = (state: RootState): StatePropsType => ({
   booksState: state.catalog,
 })
 

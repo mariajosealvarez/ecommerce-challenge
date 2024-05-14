@@ -1,3 +1,4 @@
+import { AppDispatch, RootState } from '../../../store/store'
 import { delayOperation } from '../../../utils/delayOperation'
 
 // update book quantity
@@ -73,7 +74,7 @@ export type ActionType =
   | UpdateBookQuantitySuccessActionType
   | UpdateBookQuantityFailureActionType
 
-export const addBook = (book: Book) => async (dispatch: any, getState: () => any) => {
+export const addBook = (book: Book) => async (dispatch: AppDispatch, getState: () => RootState) => {
   dispatch({
     type: ADD_BOOK_REQUEST,
   })
@@ -92,7 +93,7 @@ export const addBook = (book: Book) => async (dispatch: any, getState: () => any
       book,
       userId: signedInUser,
     })
-  } catch (error: any) {
+  } catch (error) {
     dispatch({
       type: ADD_BOOK_FAILURE,
       error,
@@ -100,7 +101,7 @@ export const addBook = (book: Book) => async (dispatch: any, getState: () => any
   }
 }
 
-export const removeBook = (bookId: string) => async (dispatch: any, getState: () => any) => {
+export const removeBook = (bookId: string) => async (dispatch: AppDispatch, getState: () => RootState) => {
   dispatch({
     type: REMOVE_BOOK_REQUEST,
   })
@@ -117,7 +118,7 @@ export const removeBook = (bookId: string) => async (dispatch: any, getState: ()
       bookId,
       userId: signedInUser,
     })
-  } catch (error: any) {
+  } catch (error) {
     dispatch({
       type: REMOVE_BOOK_FAILURE,
       error,
@@ -126,7 +127,7 @@ export const removeBook = (bookId: string) => async (dispatch: any, getState: ()
 }
 
 export const updateBookQuantity =
-  (bookId: string, newQuantity: number) => async (dispatch: any, getState: () => any) => {
+  (bookId: string, newQuantity: number) => async (dispatch: AppDispatch, getState: () => RootState) => {
     dispatch({
       type: UPDATE_BOOK_QUANTITY_REQUEST,
     })
@@ -144,7 +145,7 @@ export const updateBookQuantity =
         userId: signedInUser,
         newQuantity,
       })
-    } catch (error: any) {
+    } catch (error) {
       dispatch({
         type: UPDATE_BOOK_QUANTITY_FAILURE,
         error,

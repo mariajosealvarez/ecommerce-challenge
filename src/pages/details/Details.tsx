@@ -13,8 +13,12 @@ type Props = {
   addToCart: (book: Book) => void
 }
 
+type BookParams = {
+  bookId: string
+}
+
 export const Details: FC<Props> = ({ addToCart }) => {
-  const { bookId } = useParams()
+  const { bookId } = useParams<BookParams>()
   const book = useSelector(getBookById(bookId))
 
   const handleAddToCart = (book: Book) => {

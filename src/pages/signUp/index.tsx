@@ -2,11 +2,11 @@ import { connect } from 'react-redux'
 import { ComponentProps } from 'react'
 import { SignUp as _SignUp } from './SignUp'
 import { signUpUser } from '../../common/users/redux/actions'
+import { RootState } from '../../store/store'
 
 type StatePropsType = Pick<ComponentProps<typeof _SignUp>, 'users'>
 
-// TODO replace the ANY
-const mapStateToProps = (state: any): StatePropsType => ({
+const mapStateToProps = (state: RootState): StatePropsType => ({
   users: state.users,
 })
 

@@ -31,7 +31,7 @@ export const SignUp: FC<Props> = ({ users, signUpUser }) => {
     password: '',
   })
 
-  const handleFieldChange = (event: any): void => {
+  const handleFieldChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = event.target
     setNewUser({ ...newUser, [name]: value.trim() })
   }

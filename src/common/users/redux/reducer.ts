@@ -21,7 +21,6 @@ export type UsersStateType = {
 
 const initialState: UsersStateType = {
   isLoading: false,
-  // signedInUser: 'demo-user-id', // TODO remove this! set to null
   signedInUser: null,
   registeredUsers: [
     {

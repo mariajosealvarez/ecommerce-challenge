@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
-import { booksReducer } from '../components/catalog/redux'
+import { booksReducer } from '../common/catalog/redux'
 import { usersReducer } from '../common/users/redux'
 import { cartReducer } from '../common/cart/redux'
 

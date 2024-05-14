@@ -37,7 +37,7 @@ export const fetchBooks = () => async (dispatch: any) => {
       type: FETCH_BOOKS_SUCCESS,
       books,
     })
-  } catch (error: any) {
+  } catch (error) {
     dispatch({
       type: FETCH_BOOKS_FAILURE,
       error,

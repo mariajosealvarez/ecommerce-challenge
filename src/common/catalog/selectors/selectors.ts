@@ -1,5 +1,8 @@
-// TODO remove any
+import { RootState } from '../../../store/store'
+
 export const getBookById =
-  (bookId: any) =>
-  (state: any): Book =>
-    state.catalog.books.find((book: Book) => book.id === bookId)
+  // TODO remove this any
+
+    (bookId: any) =>
+    (state: RootState): Book | undefined =>
+      state.catalog.books.find((book: Book) => book.id === bookId)
