@@ -14,6 +14,7 @@ import SaveIcon from '@mui/icons-material/Save'
 import Alert from '@mui/material/Alert'
 import { Link as RouterLink } from 'react-router-dom'
 import { UsersStateType } from '../../common/users/redux'
+import { generateRandomId } from './utils/generateRandomId'
 
 type Props = {
   users: UsersStateType
@@ -23,6 +24,7 @@ type Props = {
 export const SignUp: FC<Props> = ({ users, signUpUser }) => {
   const { isLoading, signUpError } = users
   const [newUser, setNewUser] = useState<User>({
+    id: generateRandomId(),
     firstName: '',
     lastName: '',
     email: '',

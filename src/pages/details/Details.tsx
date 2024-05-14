@@ -5,8 +5,13 @@ import { Alert, Button, IconButton, Typography } from '@mui/material'
 import styles from './Details.module.css'
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart'
 import { Link as RouterLink } from 'react-router-dom'
+import { FC } from 'react'
 
-export const Details = () => {
+type Props = {
+  addToCart: (bookId: string) => void
+}
+
+export const Details: FC<Props> = ({ addToCart }) => {
   const { bookId } = useParams()
   const book = useSelector(getBookById(bookId))
 
@@ -15,6 +20,7 @@ export const Details = () => {
   const handleAddToCart = (bookId: string) => {
     console.log('add to cart', bookId)
     // navigate(`/cart`)
+    addToCart(bookId)
   }
 
   if (!book) {

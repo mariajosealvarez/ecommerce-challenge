@@ -20,7 +20,7 @@ type Props = {
   signInUser: (email: string, password: string) => void
 }
 
-export const SignIn: FC<Props> = ({ users, signInUser }: Props) => {
+export const SignIn: FC<Props> = ({ users, signInUser }) => {
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const navigate = useNavigate()

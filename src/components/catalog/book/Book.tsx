@@ -13,7 +13,7 @@ type Props = {
   isLoading: boolean
 }
 
-export const Book: FC<Props> = ({ book, isLoading }: Props) => {
+export const Book: FC<Props> = ({ book, isLoading }) => {
   // const navigate = useNavigate()
 
   const handleAddToCart = (bookId: string) => {

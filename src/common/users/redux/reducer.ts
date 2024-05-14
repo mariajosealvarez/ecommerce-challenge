@@ -21,8 +21,16 @@ export type UsersStateType = {
 
 const initialState: UsersStateType = {
   isLoading: false,
-  signedInUser: null,
-  registeredUsers: [],
+  signedInUser: 'demo-user-id', // TODO remove this! set to null
+  registeredUsers: [
+    {
+      id: 'demo-user-id',
+      firstName: 'Demo',
+      lastName: 'Demo',
+      email: 'demo@test.com',
+      password: 'demo',
+    },
+  ],
   signUpError: '',
   signInError: '',
 }
@@ -58,7 +66,7 @@ export const usersReducer = (state: UsersStateType = initialState, action: Actio
       return {
         ...state,
         isLoading: false,
-        signedInUser: action.email,
+        signedInUser: action.userId,
         signInError: '',
       }
     case SIGN_IN_USER_FAILURE:

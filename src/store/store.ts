@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { booksReducer } from '../components/catalog/redux'
 import { usersReducer } from '../common/users/redux'
+import { cartReducer } from '../common/cart/redux'
 
 export const store = configureStore({
   reducer: {
     catalog: booksReducer,
     users: usersReducer,
+    cart: cartReducer,
   },
 })
 

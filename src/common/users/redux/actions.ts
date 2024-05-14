@@ -35,7 +35,7 @@ type SignInUserRequestActionType = {
 
 type SignInUserSuccessActionType = {
   type: typeof SIGN_IN_USER_SUCCESS
-  email: string
+  userId: string
 }
 
 type SignInUserFailureActionType = {
@@ -112,7 +112,7 @@ export const signInUser = (email: string, password: string) => async (dispatch: 
     if (user?.password === password) {
       dispatch({
         type: SIGN_IN_USER_SUCCESS,
-        email,
+        userId: user.id,
       })
     } else {
       throw new Error('Invalid email or password')
