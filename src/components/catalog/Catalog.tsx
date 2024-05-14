@@ -1,5 +1,6 @@
-import { FC, useEffect } from 'react'
-import { Alert, Box, Container, CssBaseline, Grid } from '@mui/material'
+import { FC, useEffect, useState } from 'react'
+import { Alert, Box, Container, CssBaseline, Grid, InputBase, Toolbar } from '@mui/material'
+import SearchIcon from '@mui/icons-material/Search'
 
 import { BooksStateType } from './redux'
 import Book from './book'
@@ -11,9 +12,21 @@ type Props = {
 
 export const Catalog: FC<Props> = ({ booksState, fetchBooks }) => {
   const { isLoading, books, error } = booksState
+  const [searchParam, setSearchParam] = useState<string>('')
+
   useEffect(() => {
     fetchBooks()
   }, [fetchBooks])
+
+  const handleSearchChange = (event: any): void => {
+    setSearchParam(event.target.value)
+  }
+
+  const filteredBooks = books.filter(
+    (book) =>
+      book.title.toLowerCase().includes(searchParam.toLowerCase()) || // match title
+      book.authors?.find((author) => author.toLowerCase().includes(searchParam)) // or any author
+  )
 
   if (error) {
     return <Alert severity='error'>Error trying to get the books, please try again</Alert>
@@ -23,8 +36,12 @@ export const Catalog: FC<Props> = ({ booksState, fetchBooks }) => {
     <Container>
       <CssBaseline />
       <Box>
+        <Toolbar sx={{ backgroundColor: 'lightblue', color: '#000', marginBottom: 1 }}>
+          <SearchIcon />
+          <InputBase placeholder='Search title or author' onChange={handleSearchChange} />
+        </Toolbar>
         <Grid container spacing={4}>
-          {books.map((book) => (
+          {filteredBooks.map((book) => (
             <Book key={book.id} book={book} isLoading={isLoading} />
           ))}
         </Grid>
