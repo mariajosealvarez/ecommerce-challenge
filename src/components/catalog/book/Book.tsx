@@ -12,11 +12,11 @@ import CardActions from '@mui/material/CardActions'
 import CircularProgress from '@mui/material/CircularProgress'
 import CssBaseline from '@mui/material/CssBaseline'
 import IconButton from '@mui/material/IconButton'
-import { Snackbar } from '@mui/material'
 
 import Price from '../../price'
 import Authors from '../../authors'
-import { useSnackbar } from '../../../hooks/useSnackBar'
+import { useToastMessage } from '../../../hooks/useToastMessage'
+import ToastMessage from '../../toast-message'
 
 type Props = {
   book: Book
@@ -25,7 +25,7 @@ type Props = {
 }
 
 export const Book: FC<Props> = ({ book, isLoading, addToCart }) => {
-  const { isOpen, handleCloseSnackBar, message, displaySnackBar } = useSnackbar()
+  const { isOpen, handleCloseSnackBar, message, displaySnackBar } = useToastMessage()
 
   const handleAddToCart = (book: Book) => {
     addToCart(book)
@@ -73,13 +73,7 @@ export const Book: FC<Props> = ({ book, isLoading, addToCart }) => {
           </Card>
         </Grid>
       )}
-      <Snackbar
-        open={isOpen}
-        autoHideDuration={2000}
-        message={message}
-        onClose={handleCloseSnackBar}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-      />
+      <ToastMessage isOpen={isOpen} message={message} onClose={handleCloseSnackBar} />
     </>
   )
 }

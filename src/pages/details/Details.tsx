@@ -8,6 +8,8 @@ import { getBookById } from '../../state/catalog/selectors'
 import styles from './Details.module.css'
 import Price from '../../components/price'
 import Authors from '../../components/authors'
+import { useToastMessage } from '../../hooks/useToastMessage'
+import ToastMessage from '../../components/toast-message'
 
 type Props = {
   addToCart: (book: Book) => void
@@ -20,9 +22,11 @@ type BookParams = {
 export const Details: FC<Props> = ({ addToCart }) => {
   const { bookId } = useParams<BookParams>()
   const book = useSelector(getBookById(bookId))
+  const { isOpen, handleCloseSnackBar, message, displaySnackBar } = useToastMessage()
 
   const handleAddToCart = (book: Book) => {
     addToCart(book)
+    displaySnackBar('Book added to the cart')
   }
 
   if (!book) {
@@ -69,6 +73,7 @@ export const Details: FC<Props> = ({ addToCart }) => {
           </div>
         </aside>
       </div>
+      <ToastMessage isOpen={isOpen} message={message} onClose={handleCloseSnackBar} />
     </section>
   )
 }

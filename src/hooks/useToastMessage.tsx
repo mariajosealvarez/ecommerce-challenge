@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-export const useSnackbar = () => {
+export const useToastMessage = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [message, setMessage] = useState('Something went wrong...')
 

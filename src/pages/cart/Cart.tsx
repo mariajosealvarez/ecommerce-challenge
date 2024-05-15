@@ -5,6 +5,8 @@ import styles from './Cart.module.css'
 import QuantityControl from './quantity-control'
 import { Alert } from '@mui/material'
 import Price from '../../components/price'
+import ToastMessage from '../../components/toast-message'
+import { useToastMessage } from '../../hooks/useToastMessage'
 
 type Props = {
   updateBookQuantity: (bookId: string, newQuantity: number) => void
@@ -13,6 +15,7 @@ type Props = {
 
 export const Cart: FC<Props> = ({ updateBookQuantity, removeBook }) => {
   const userOrders: BookOrder[] = useSelector(userCartSelector)
+  const { isOpen, handleCloseSnackBar, message, displaySnackBar } = useToastMessage()
 
   const cartSummary = userOrders.reduce(
     (summary, { book, quantity }) => {
@@ -30,10 +33,12 @@ export const Cart: FC<Props> = ({ updateBookQuantity, removeBook }) => {
 
   const handleUpdateBookQuantity = (bookId: string, quantity: number): void => {
     updateBookQuantity(bookId, quantity)
+    displaySnackBar('Book quantity updated')
   }
 
   const handleRemoveBook = (bookId: string): void => {
     removeBook(bookId)
+    displaySnackBar('Book removed')
   }
 
   if (!userOrders.length) {
@@ -70,6 +75,7 @@ export const Cart: FC<Props> = ({ updateBookQuantity, removeBook }) => {
           {cartSummary.total.toFixed(2)}
         </p>
       </div>
+      <ToastMessage isOpen={isOpen} message={message} onClose={handleCloseSnackBar} />
     </div>
   )
 }
