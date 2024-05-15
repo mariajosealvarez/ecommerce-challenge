@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import { ComponentProps } from 'react'
 import { Book as _Book } from './Book'
-import { addBook } from '../../../common/cart/redux'
+import { addBook } from '../../../state/cart/redux'
 
 type DispatchPropsType = Pick<ComponentProps<typeof _Book>, 'addToCart'>
 const mapDispatchToProps: DispatchPropsType = {

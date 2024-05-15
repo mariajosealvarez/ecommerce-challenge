@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit'
-import { booksReducer } from '../common/catalog/redux'
-import { usersReducer } from '../common/users/redux'
-import { cartReducer } from '../common/cart/redux'
+import { booksReducer } from '../state/catalog/redux'
+import { usersReducer } from '../state/users/redux'
+import { cartReducer } from '../state/cart/redux'
 
 export const store = configureStore({
   reducer: {

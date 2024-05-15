@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from 'react'
 import { Alert, Box, Container, CssBaseline, Grid, InputBase, Toolbar } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search'
 
-import { BooksStateType } from '../../common/catalog/redux'
+import { BooksStateType } from '../../state/catalog/redux'
 import Book from './book'
 
 type Props = {

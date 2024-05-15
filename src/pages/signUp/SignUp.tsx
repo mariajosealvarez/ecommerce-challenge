@@ -13,7 +13,7 @@ import MenuBookIcon from '@mui/icons-material/MenuBook'
 import SaveIcon from '@mui/icons-material/Save'
 import Alert from '@mui/material/Alert'
 
-import { UsersStateType } from '../../common/users/redux'
+import { UsersStateType } from '../../state/users/redux'
 import { generateRandomId } from './utils/generateRandomId'
 
 type Props = {

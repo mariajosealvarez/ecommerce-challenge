@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 import { Container, CssBaseline } from '@mui/material'
 
 import TopNav from '../topNav'
-import { isUserSignedIn } from '../../common/users/selectors'
+import { isUserSignedIn } from '../../state/users/selectors'
 
 export const ProtectedLayout: FC = () => {
   const hasLoggedUser = useSelector(isUserSignedIn)

@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import { ComponentProps } from 'react'
 import { SignUp as _SignUp } from './SignUp'
-import { signUpUser } from '../../common/users/redux/actions'
+import { signUpUser } from '../../state/users/redux/actions'
 import { RootState } from '../../store/store'
 
 type StatePropsType = Pick<ComponentProps<typeof _SignUp>, 'users'>

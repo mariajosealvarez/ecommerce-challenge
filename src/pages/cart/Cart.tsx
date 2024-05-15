@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import { useSelector } from 'react-redux'
-import { userCartSelector } from '../../common/cart/selectors'
+import { userCartSelector } from '../../state/cart/selectors'
 import styles from './Cart.module.css'
 import QuantityControl from './quantity-control'
 import { Alert } from '@mui/material'

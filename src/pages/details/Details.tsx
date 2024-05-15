@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom'
 import { Alert, IconButton } from '@mui/material'
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart'
 
-import { getBookById } from '../../common/catalog/selectors'
+import { getBookById } from '../../state/catalog/selectors'
 import styles from './Details.module.css'
 import Price from '../../components/price'
 import Authors from '../../components/authors'

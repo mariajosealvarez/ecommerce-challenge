@@ -13,7 +13,7 @@ import MenuBookIcon from '@mui/icons-material/MenuBook'
 import Alert from '@mui/material/Alert'
 import SaveIcon from '@mui/icons-material/Save'
 
-import { UsersStateType } from '../../common/users/redux'
+import { UsersStateType } from '../../state/users/redux'
 
 type Props = {
   users: UsersStateType
