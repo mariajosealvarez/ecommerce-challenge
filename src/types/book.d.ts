@@ -12,8 +12,8 @@ declare global {
       amount: number
       currencyCode: string
     }
-    categories: string[]
-    pageCount: number
+    categories?: string[]
+    pageCount?: number
     reviews: string[]
   }
 }

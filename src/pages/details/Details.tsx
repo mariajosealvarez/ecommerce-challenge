@@ -39,14 +39,18 @@ export const Details: FC<Props> = ({ addToCart }) => {
           <p className={styles.title}>{book.title}</p>
           <Authors authors={book.authors} />
           <p className={styles.description}>{book.description}</p>
-          <p className={styles.description}>
-            <strong>Categories: </strong>
-            {book.categories.join(', ')}
-          </p>
-          <p className={styles.description}>
-            <strong>Page count: </strong>
-            {book.pageCount} pages
-          </p>
+          {book.categories && (
+            <p className={styles.description}>
+              <strong>Categories: </strong>
+              {book.categories?.join(', ')}
+            </p>
+          )}
+          {book.pageCount && (
+            <p className={styles.description}>
+              <strong>Page count: </strong>
+              {book.pageCount} pages
+            </p>
+          )}
           {book.reviews && (
             <div className={styles.description}>
               <p>Reviews:</p>
