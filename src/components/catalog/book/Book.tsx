@@ -29,7 +29,7 @@ export const Book: FC<Props> = ({ book, isLoading, addToCart }) => {
 
   const handleAddToCart = (book: Book) => {
     addToCart(book)
-    displaySnackBar('Book added to the Cart')
+    displaySnackBar('Book added to the cart')
   }
 
   return (

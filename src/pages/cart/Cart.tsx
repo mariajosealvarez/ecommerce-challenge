@@ -1,12 +1,13 @@
 import { FC } from 'react'
 import { useSelector } from 'react-redux'
-import { userCartSelector } from '../../state/cart/selectors'
-import styles from './Cart.module.css'
-import QuantityControl from './quantity-control'
 import { Alert } from '@mui/material'
+
+import { userCartSelector } from '../../state/cart/selectors'
+import { useToastMessage } from '../../hooks/useToastMessage'
+import QuantityControl from './quantity-control'
 import Price from '../../components/price'
 import ToastMessage from '../../components/toast-message'
-import { useToastMessage } from '../../hooks/useToastMessage'
+import styles from './Cart.module.css'
 
 type Props = {
   updateBookQuantity: (bookId: string, newQuantity: number) => void

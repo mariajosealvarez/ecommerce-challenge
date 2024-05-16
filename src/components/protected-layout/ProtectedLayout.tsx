@@ -8,7 +8,6 @@ import { isUserSignedIn } from '../../state/users/selectors'
 
 export const ProtectedLayout: FC = () => {
   const hasLoggedUser = useSelector(isUserSignedIn)
-  // const hasLoggedUser = true
 
   if (!hasLoggedUser) {
     return <Navigate to='/signin'></Navigate>

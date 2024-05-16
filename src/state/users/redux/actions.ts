@@ -85,8 +85,6 @@ export const signUpUser = (user: User) => async (dispatch: AppDispatch, getState
         type: SIGN_UP_USER_SUCCESS,
         user,
       })
-
-      signInUser(user.email, user.password)(dispatch, getState)
     } else {
       throw new Error('The user already exists')
     }

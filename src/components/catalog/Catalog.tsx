@@ -25,7 +25,7 @@ export const Catalog: FC<Props> = ({ booksState, fetchBooks }) => {
   const filteredBooks = books.filter(
     (book) =>
       book.title.toLowerCase().includes(searchParam.toLowerCase()) || // match title
-      book.authors?.find((author) => author.toLowerCase().includes(searchParam)) // or any author
+      book.authors?.find((author) => author.toLowerCase().includes(searchParam.toLowerCase())) // or any author
   )
 
   if (error) {
